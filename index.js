@@ -5,7 +5,7 @@ const movieFetch = async (searchData) => {
 			s: searchData,
 		},
 	});
-	console.log(response.data);
+	return response.data.Search;
 };
 
 //NOTE
@@ -22,14 +22,31 @@ const input = document.querySelector('input');
 
 // TODO  This function bellow only work after 1 second after stop typing so because of that it's only making 1 resquest instad of 1 every key press. Like the Note above
 
-let timeoutId;
-const onInput = (event) => {
-	if (timeoutId) {
-		clearTimeout(timeoutId);
-	}
-	timeoutId = setTimeout(() => {
-		movieFetch(event.target.value);
-	}, 500);
+const waitFunc = (callback) => {
+	let timeoutId;
+	//NOTE ...Arg is going to take all the argument pass in
+	return (...args) => {
+		if (timeoutId) {
+			clearTimeout(timeoutId);
+		}
+		timeoutId = setTimeout(() => {
+			//NOTE Apply mean take every argument that is pass and run it.
+			callback.apply(null, args);
+		}, 500);
+	};
 };
 
-input.addEventListener('input', onInput);
+const onInput = async (event) => {
+	//NOTE need to add await bc i was only response no Data
+	const movieData = await movieFetch(event.target.value);
+
+	for (let movie of movieData) {
+		const div = document.createElement('div');
+		div.innerHTML = `<img src='${movie.Poster}'/> ${movie.Title}, `;
+		document.getElementById('target').appendChild(div);
+	}
+};
+
+input.addEventListener('input', waitFunc(onInput));
+
+// I need to create my loop inside a div
