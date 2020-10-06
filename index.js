@@ -5,7 +5,11 @@ const movieFetch = async (searchData) => {
 			s: searchData,
 		},
 	});
-	return response.data.Search;
+	if (response.data.Error) {
+		alert('Movie not found');
+	} else {
+		return response.data.Search;
+	}
 };
 
 //NOTE
@@ -32,7 +36,7 @@ const waitFunc = (callback) => {
 		timeoutId = setTimeout(() => {
 			//NOTE Apply mean take every argument that is pass and run it.
 			callback.apply(null, args);
-		}, 500);
+		}, 1000);
 	};
 };
 
