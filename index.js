@@ -36,15 +36,36 @@ const onInput = async (event) => {
 	dropdown.classList.add('is-active');
 	for (let movie of movies) {
 		const options = document.createElement('a');
+		//NOTE Handle broken Image setting it to default images
+		const ImageSrc =
+			movie.Poster === 'N/A'
+				? 'http://www.actbus.net/fleetwiki/images/8/84/Noimage.jpg'
+				: movie.Poster;
 
 		options.classList.add('dropdown-item');
 		options.innerHTML = `
-		<img src="${movie.Poster}" />
+		<img src="${ImageSrc}" />
 		${movie.Title}
 	  `;
+		// NOTE close dropdown after click on the movie and update the text input
+		options.addEventListener('click', () => {
+			//Closed the dropdown
+			dropdown.classList.remove('is-active');
+			//grab the movie title udate the input
+			input.value = movie.Title;
+		});
 
 		dropdownResult.appendChild(options);
 	}
 };
 // NOTE Passing in my helper function and setting a delay directly in here calling onInput as the first argument and delay as second arg
 input.addEventListener('input', waitFunc(onInput, 1000));
+
+//NOTE close dropdown when i click outside the  dropdown
+
+document.addEventListener('click', (event) => {
+	// console.log(event.target);
+	!auto.contains(event.target);
+	//NOTE set dropdown to unactive
+	dropdown.classList.remove('is-active');
+});
