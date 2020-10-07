@@ -53,6 +53,7 @@ const onInput = async (event) => {
 			dropdown.classList.remove('is-active');
 			//grab the movie title udate the input
 			input.value = movie.Title;
+			onMovieSelect(movie);
 		});
 
 		dropdownResult.appendChild(options);
@@ -69,3 +70,43 @@ document.addEventListener('click', (event) => {
 	//NOTE set dropdown to unactive
 	dropdown.classList.remove('is-active');
 });
+
+//NOTE Single Movie Request
+onMovieSelect = async (movie) => {
+	const singleMovie = await axios.get('http://www.omdbapi.com/', {
+		params: {
+			apikey: 'f8646cb9',
+			i: movie.imdbID,
+		},
+	});
+	// console.log(individualMovie.data);
+	document.getElementById('summary').innerHTML = movieinfo(singleMovie.data);
+};
+
+const movieinfo = (movieDetail) => {
+	return `
+<div class="profile-card">
+    <div class="container-profile-image">
+      <img class="profile-image" src="${movieDetail.Poster}"/> 
+    </div>
+    <div>
+      <p class="profile-name">${movieDetail.Title}</p>
+      <p class="profile-address">${movieDetail.Genre}</p>
+      <p class="profile-ratings">
+        <i class="fa fa-star col-yellow"></i>
+        <i class="fa fa-star col-yellow"></i>
+        <i class="fa fa-star col-yellow"></i>
+        <i class="fa fa-star col-yellow"></i>
+       
+        
+		${movieDetail.imdbRating}</p>
+		<p class="profile-description" > <b>Awards:</b> ${movieDetail.Awards}</p>
+      <p class="profile-description">${movieDetail.Plot}
+	  </p>
+	 <div class="profile-description">BoxOffice:$ ${movieDetail.BoxOffice}</div>
+     
+    </div>
+</div>
+
+`;
+};

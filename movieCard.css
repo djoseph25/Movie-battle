@@ -1,0 +1,83 @@
+body {
+	width: 100%;
+	height: 100vh;
+	margin: 0;
+	background: rgba(31, 28, 29, 0.226);
+	background: linear-gradient(0deg, rgb(89, 130, 163) 9%, rgba(109, 112, 153, 1) 87%);
+	font-family: 'Roboto-400', sans-serif;
+	font-size: 26px;
+}
+
+/* BEGIN - Cards */
+.profile-card {
+	width: 390px;
+	height: 320px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #ffffff;
+	padding: 16px 16px 16px 16px;
+	box-shadow: 2px 5px 20px 4px rgba(176, 176, 176, 0.5);
+	border-radius: 4px;
+}
+/* END - Cards */
+
+/* BEGIN - Profile Info */
+.profile-name {
+	color: black;
+	font-family: 'Roboto-500', sans-serif;
+	font-size: 20px;
+	margin: 0;
+}
+
+.profile-address {
+	margin-top: 8px;
+	font-size: 11px;
+}
+
+.profile-ratings {
+	margin-top: 10px;
+	font-size: 11px;
+}
+
+.profile-description {
+	margin-top: 10px;
+	font-size: 11px;
+	line-height: 20px;
+}
+/* END - Profile Info */
+
+/* BEGIN - Container */
+.container-profile-image {
+	margin-right: 25px;
+	float: left;
+}
+
+/* END - Container */
+
+/* BEGIN - Images */
+.profile-image {
+	width: 165px;
+	height: 260px;
+	box-shadow: 2px 5px 20px 4px rgba(176, 176, 176, 0.5);
+}
+/* END - Images */
+
+/* BEGIN - Texts */
+p {
+	color: #181a1d;
+	font-size: 12px;
+}
+.col-yellow {
+	color: #ffcc00;
+}
+/* END - Texts */
+
+/* BEGIN - Buttons */
+
+/* END - Buttons */
+
+/* BEGIN - Icon colors */
+
+/* END - Icon colors */
