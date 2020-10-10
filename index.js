@@ -1,26 +1,42 @@
-const fetchMovie = async (searchData) => {
-	const response = await axios.get('http://www.omdbapi.com/', {
-		params: {
-			apikey: 'f8646cb9',
-			s: searchData,
-		},
-	});
-
-	if (response.data.Error) {
-		return alert('Movie Not Found');
-	}
-
-	return response.data.Search;
-};
-
 autoComplete({
-	auto: document.querySelector('.autocomplete')
+	auto: document.querySelector('.autocomplete'),
+	renderOptions (movie)  {
+	//NOTE Handle broken Image setting it to default images
+		const ImageSrc =
+		movie.Poster === 'N/A'
+			? 'http://www.actbus.net/fleetwiki/images/8/84/Noimage.jpg'
+			: movie.Poster;
+			return `
+			<img src="${ImageSrc}" />
+			${movie.Title}
+		  `;
+	}, 
+	onOptionSelect (movie) {
+		onMovieSelect(movie);
+	},
+	inputValue (movie){
+		return movie.Title
+	}, 
+  async	fetchMovie (searchData) 
+		 {
+			const response = await axios.get('http://www.omdbapi.com/', {
+				params: {
+					apikey: 'f8646cb9',
+					s: searchData,
+				},
+			});
+		
+			if (response.data.Error) {
+				return alert('Movie Not Found');
+			}
+		
+			return response.data.Search;
+		}
+		
+	
 	
 })
-autoComplete({
-	auto: document.querySelector('.autocomplete-two')
-	
-})
+
 
 //NOTE Single Movie Request
 onMovieSelect = async (movie) => {
@@ -30,7 +46,6 @@ onMovieSelect = async (movie) => {
 			i: movie.imdbID,
 		},
 	});
-	// console.log(individualMovie.data);
 	document.getElementById('summary').innerHTML = movieinfo(singleMovie.data);
 };
 
