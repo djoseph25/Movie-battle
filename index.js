@@ -36,28 +36,38 @@ const autoCompleteRender = {
 			}
 }
 
-autoComplete({
+autoComplete({...autoCompleteRender,
 	auto: document.querySelector('#left-autocomplete'),
-	...autoCompleteRender
+	
+	onOptionSelect (movie) {
+		// Hide my tutorial button is Hidden is bulma css property
+	 document.querySelector('.rules').classList.add('is-hidden')
+	 //NOTE Add movieinfo id I create in html as the second argument
+		onMovieSelect(movie,document.querySelector('#left-movieInfo'));
+	},
 	
 })
-autoComplete({
+autoComplete({...autoCompleteRender,
 	auto: document.querySelector('#right-autocomplete'),
-	...autoCompleteRender
+	onOptionSelect (movie) {
+		// Hide my tutorial button is Hidden is bulma css property
+	 document.querySelector('.rules').classList.add('is-hidden')
+		onMovieSelect(movie,document.querySelector('#right-movieInfo'))
+	},
 	
 })
 
 
 
 //NOTE Single Movie Request
-onMovieSelect = async (movie) => {
+onMovieSelect = async (movie, movieInfo) => {
 	const singleMovie = await axios.get('http://www.omdbapi.com/', {
 		params: {
 			apikey: 'f8646cb9',
 			i: movie.imdbID,
 		},
 	});
-	document.getElementById('summary').innerHTML = movieinfo(singleMovie.data);
+	movieInfo.innerHTML = movieinfo(singleMovie.data);
 };
 
 

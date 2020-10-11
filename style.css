@@ -1,10 +1,7 @@
 /* Movie Title Css Neon */
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
-body {
-	font-family: cursive;
-	font-family: 'Acme', sans-serif;
-}
+
 .span {
 	color: cyan;
 	font-family: 'Acme', sans-serif;
@@ -13,6 +10,7 @@ body {
 	padding-left: 85px;
 }
 .glow {
+	font-family: cursive;
 	font-size: 90px;
 	font-family: 'Acme', sans-serif;
 	color: red;
