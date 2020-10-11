@@ -1,41 +1,52 @@
-autoComplete({
-	auto: document.querySelector('.autocomplete'),
+const autoCompleteRender = {
 	renderOptions (movie)  {
-	//NOTE Handle broken Image setting it to default images
-		const ImageSrc =
-		movie.Poster === 'N/A'
-			? 'http://www.actbus.net/fleetwiki/images/8/84/Noimage.jpg'
-			: movie.Poster;
-			return `
-			<img src="${ImageSrc}" />
-			${movie.Title}
-		  `;
-	}, 
-	onOptionSelect (movie) {
-		onMovieSelect(movie);
-	},
-	inputValue (movie){
-		return movie.Title
-	}, 
-  async	fetchMovie (searchData) 
-		 {
-			const response = await axios.get('http://www.omdbapi.com/', {
-				params: {
-					apikey: 'f8646cb9',
-					s: searchData,
-				},
-			});
-		
-			if (response.data.Error) {
-				return alert('Movie Not Found');
+		//NOTE Handle broken Image setting it to default images
+			const ImageSrc =
+			movie.Poster === 'N/A'
+				? 'http://www.actbus.net/fleetwiki/images/8/84/Noimage.jpg'
+				: movie.Poster;
+				return `
+				<img src="${ImageSrc}" />
+				${movie.Title}
+			  `;
+		}, 
+		onOptionSelect (movie) {
+			// Hide my tutorial button is Hidden is bulma css property
+		 document.querySelector('.rules').classList.add('is-hidden')
+
+			onMovieSelect(movie);
+		},
+		inputValue (movie){
+			return movie.Title
+		}, 
+	  async	fetchMovie (searchData) 
+			 {
+				const response = await axios.get('http://www.omdbapi.com/', {
+					params: {
+						apikey: 'f8646cb9',
+						s: searchData,
+					},
+				});
+			
+				if (response.data.Error) {
+					return alert('Movie Not Found');
+				}
+			
+				return response.data.Search;
 			}
-		
-			return response.data.Search;
-		}
-		
-	
+}
+
+autoComplete({
+	auto: document.querySelector('#left-autocomplete'),
+	...autoCompleteRender
 	
 })
+autoComplete({
+	auto: document.querySelector('#right-autocomplete'),
+	...autoCompleteRender
+	
+})
+
 
 
 //NOTE Single Movie Request
